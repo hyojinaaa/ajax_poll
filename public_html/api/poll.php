@@ -44,7 +44,7 @@ $sql = "INSERT INTO vote
 // Run the query
 $dbc->query($sql);
 
-if( $dbc->affected_row == 1 ) {
+if( $dbc->affected_rows == 1 ) {
 	// Vote sent
 
 	// Get the vote summary
