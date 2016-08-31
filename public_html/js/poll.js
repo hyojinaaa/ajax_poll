@@ -28,6 +28,13 @@ $(document).ready(function(){
 			},
 			success: function(dataFromServer) {
 				console.log(dataFromServer);
+				if(dataFromServer['status'] === false){
+					$('#message').removeClass('success').addClass('error');
+					$('#message').html(dataFromServer['message']);
+				} else {
+					$('#message').removeClass('error').addClass('success');
+					$('#message').html(dataFromServer['message']);
+				}
 			},
 			error: function() {
 				console.log("Cannot connect to server");

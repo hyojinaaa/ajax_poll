@@ -30,11 +30,36 @@ if($isValid == false) {
 
 // Get the users ID address
 // For testing I am commenting this line out
-//$ipaddress = $_SERVER['REMOTE_ADDR'];
-$ipaddress = rand() . "\n";
+$ipaddress = $_SERVER['REMOTE_ADDR'];
+// $ipaddress = rand() . "\n";
 
 // Connect to database
 $dbc = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+// Check to make sure the voter has not voted before
+$sql = "SELECT ip_address 
+		FROM vote 
+		WHERE ip_address = '$ipaddress'";
+
+$result = $dbc->query($sql);		
+
+// Count the number or records returned
+if($result->num_rows >= 1){
+
+	// Prepare the message
+	$message = [
+		'status' => false,
+		'message' => 'You cannnot vote more than once'
+	];
+
+	// Prepare the header
+	header('Content-Type: application/json');
+
+	echo json_encode($message);
+
+	// stop
+	exit();
+}
 
 // Prepare the insert query
 $sql = "INSERT INTO vote 
