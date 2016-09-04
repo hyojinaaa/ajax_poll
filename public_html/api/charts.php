@@ -30,7 +30,7 @@ if( $result->num_rows > 0 ) {
 	$movie_Tags_JSON = json_encode($movie_tags);
 
 	// Prepare the header
-	header('Content-TypeL application/json');
+	header('Content-Type: application/json');
 
 	// Send the data
 	echo $movie_Tags_JSON;
